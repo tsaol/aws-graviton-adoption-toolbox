@@ -18,7 +18,9 @@
     "answer.md",
     "input",
     "scripts"
-   ]
+   ],
+   "skills_loaded": [],
+   "scripts_run": []
   },
   {
    "case": "ice-two-causes",
@@ -36,7 +38,9 @@
     "answer.md",
     "input",
     "scripts"
-   ]
+   ],
+   "skills_loaded": [],
+   "scripts_run": []
   },
   {
    "case": "ice-two-causes",
@@ -55,6 +59,14 @@
     "answer.md",
     "input",
     "work"
+   ],
+   "skills_loaded": [
+    "graviton-rollout-capacity"
+   ],
+   "scripts_run": [
+    "classify.py",
+    "daily_page.py",
+    "simulate_split.py"
    ]
   },
   {
@@ -74,6 +86,14 @@
     "answer.md",
     "input",
     "work"
+   ],
+   "skills_loaded": [
+    "graviton-rollout-capacity"
+   ],
+   "scripts_run": [
+    "classify.py",
+    "daily_page.py",
+    "simulate_split.py"
    ]
   },
   {
@@ -91,7 +111,9 @@
    "files_written": [
     "answer.md",
     "input"
-   ]
+   ],
+   "skills_loaded": [],
+   "scripts_run": []
   },
   {
    "case": "ice-after-release",
@@ -108,7 +130,9 @@
    "files_written": [
     "answer.md",
     "input"
-   ]
+   ],
+   "skills_loaded": [],
+   "scripts_run": []
   },
   {
    "case": "ice-after-release",
@@ -127,6 +151,14 @@
     "answer.md",
     "input",
     "rollout-report.html"
+   ],
+   "skills_loaded": [
+    "graviton-rollout-capacity"
+   ],
+   "scripts_run": [
+    "classify.py",
+    "daily_page.py",
+    "simulate_split.py"
    ]
   },
   {
@@ -146,6 +178,14 @@
     "answer.md",
     "input",
     "output"
+   ],
+   "skills_loaded": [
+    "graviton-rollout-capacity"
+   ],
+   "scripts_run": [
+    "classify.py",
+    "daily_page.py",
+    "simulate_split.py"
    ]
   }
  ]

@@ -73,7 +73,8 @@ def grade_run(run):
     return dict(case=run["case"], mode=run["mode"], rep=run["rep"], fact_score=round(score, 3),
                 facts=j["facts"], wrong_claims=j.get("wrong_claims", []), notes=j.get("notes", ""),
                 numbers=number_check(rubric, ans), wall_seconds=run["wall_seconds"],
-                num_turns=run["num_turns"], cost_usd=run["cost_usd"], returncode=run["returncode"])
+                num_turns=run["num_turns"], cost_usd=run["cost_usd"], returncode=run["returncode"],
+                skills_loaded=run.get("skills_loaded"), scripts_run=run.get("scripts_run"))
 
 
 def mean(xs):
@@ -124,7 +125,8 @@ def write_reports(d, out):
     for g in out["graded"]:
         wc = ", ".join(g["wrong_claims"]) or "none"
         facts = " ".join(f"{k}:{v[0].upper()}" for k, v in sorted(g["facts"].items()))
-        lines.append(f"- `{g['case']}` **{g['mode']}** #{g['rep']}: score {g['fact_score']}, facts {facts}, wrong claims {wc}, {g['wall_seconds']} s. {g['notes']}")
+        used = "" if g.get("skills_loaded") is None else f" Skills loaded: {', '.join(g['skills_loaded']) or 'none'}; scripts run: {', '.join(g['scripts_run']) or 'none'}."
+        lines.append(f"- `{g['case']}` **{g['mode']}** #{g['rep']}: score {g['fact_score']}, facts {facts}, wrong claims {wc}, {g['wall_seconds']} s.{used} {g['notes']}")
     lines += ["", "Answers are in `answers/`. Raw runs in `runs.json`, grades in `scores.json`."]
     md = "\n".join(lines) + "\n"
     with open(os.path.join(d, "report.md"), "w", encoding="utf-8") as fh:

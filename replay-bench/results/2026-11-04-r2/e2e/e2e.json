@@ -1,0 +1,45 @@
+[
+ {
+  "test": "quickstart-proj",
+  "skills_loaded": [
+   "graviton-rollout-capacity"
+  ],
+  "scripts_run": [
+   "classify.py"
+  ],
+  "num_turns": 6,
+  "duration_ms": 30180,
+  "cost_usd": 0.20786160000000004,
+  "is_error": false
+ },
+ {
+  "test": "precheck",
+  "skills_loaded": [
+   "graviton-rollout-capacity"
+  ],
+  "scripts_run": [
+   "precheck.py"
+  ],
+  "num_turns": 8,
+  "duration_ms": 62658,
+  "cost_usd": 0.23111199999999998,
+  "is_error": false
+ },
+ {
+  "test": "weekly",
+  "skills_loaded": [
+   "graviton-rollout-capacity"
+  ],
+  "scripts_run": [
+   "weekly_report.py"
+  ],
+  "num_turns": 7,
+  "duration_ms": 52155,
+  "cost_usd": 0.21324620000000002,
+  "is_error": false
+ },
+ {
+  "test": "user-level-install",
+  "result": "user-level skills found: ['graviton-playbook', 'graviton-rollout-capacity']"
+ }
+]

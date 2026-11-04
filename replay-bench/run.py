@@ -58,7 +58,7 @@ def run_one(case, mode, rep, model, base, timeout):
     return {"case": case, "mode": mode, "rep": rep, "returncode": rc, "wall_seconds": round(wall, 1),
             "duration_ms": meta.get("duration_ms"), "num_turns": meta.get("num_turns"),
             "cost_usd": meta.get("total_cost_usd"), "answer": answer, "stderr_tail": err[-500:],
-            "workspace": ws, "files_written": sorted(os.listdir(ws))}
+            "workspace": ws, "config_dir": cfg, "files_written": sorted(os.listdir(ws))}
 
 
 def main():
@@ -82,6 +82,7 @@ def main():
         json.dump({"model": a.model, "date": dt.datetime.utcnow().isoformat() + "Z", "runs": runs}, fh, indent=1, ensure_ascii=False)
     for r in runs:
         print(r["case"], r["mode"], r["rep"], "rc", r["returncode"], "s", r["wall_seconds"], "turns", r["num_turns"], "files", r["files_written"])
+    print("next: python3 tools/evidence.py", a.out, "&& python3 grade.py", a.out)
 
 
 if __name__ == "__main__":

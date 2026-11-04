@@ -5,7 +5,7 @@
   {"id": "F2", "text": "m8g.16xlarge (fallback) fails with InsufficientInstanceCapacity only in eu-west-1a, only around 01:00-03:00 UTC, while the account team's snapshot shows 240 free m8g.16xlarge in eu-west-1a at those times. So pool depth does not explain it; the evidence should go to the AWS account team / TAM to investigate (e.g. account-level limits).", "numbers": ["90", "240"]},
   {"id": "F3", "text": "c8g.4xlarge fails with VcpuLimitExceeded in a different Auto Scaling group (batch-etl-asg): a real On-Demand vCPU quota problem, fixed via Service Quotas, unrelated to the Graviton web rollout's capacity.", "numbers": ["36"]},
   {"id": "F4", "text": "m8g.16xlarge in eu-west-1b fails with InsufficientFreeAddressesInSubnet (subnet-0bbb2222): a subnet IP space problem, fixed by adding IP space/subnets.", "numbers": ["15"]},
-  {"id": "F5", "text": "Duplicate records from the two merged trails are removed before counting (128 duplicates); counts are based on unique events (465 instances with capacity errors in total).", "numbers": ["128", "465"]},
+  {"id": "F5", "text": "Duplicates are removed before counting: the same record appearing twice (same eventID) and several rows for the same API request (same requestID). Counts are based on 1,161 unique requests out of 3,754 rows; 465 instances failed with capacity errors in total.", "numbers": ["465"]},
   {"id": "F6", "text": "Recommends continuing the rollout (not pausing as the first answer), with concrete actions and an owner for each (customer platform team / AWS account team or TAM / customer for quota)."}
  ],
  "wrong_claims": [

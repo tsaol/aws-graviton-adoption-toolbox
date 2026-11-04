@@ -1,0 +1,308 @@
+{
+ "model": "jp.anthropic.claude-opus-5-5",
+ "judge": "jp.anthropic.claude-opus-5-5",
+ "date": "2026-11-04T10:57:59.969431Z",
+ "summary": [
+  {
+   "case": "ice-after-release",
+   "mode": "with",
+   "runs": 2,
+   "fact_score": 1.0,
+   "wrong_claims": 0,
+   "numbers_ok": 1.0,
+   "wall_seconds": 77.05,
+   "num_turns": 8,
+   "cost_usd": 0.309
+  },
+  {
+   "case": "ice-after-release",
+   "mode": "without",
+   "runs": 2,
+   "fact_score": 0.7,
+   "wrong_claims": 1,
+   "numbers_ok": 0.667,
+   "wall_seconds": 91.65,
+   "num_turns": 6.5,
+   "cost_usd": 0.358
+  },
+  {
+   "case": "ice-two-causes",
+   "mode": "with",
+   "runs": 2,
+   "fact_score": 1.0,
+   "wrong_claims": 0,
+   "numbers_ok": 1.0,
+   "wall_seconds": 108.2,
+   "num_turns": 10.5,
+   "cost_usd": 0.475
+  },
+  {
+   "case": "ice-two-causes",
+   "mode": "without",
+   "runs": 2,
+   "fact_score": 0.791,
+   "wrong_claims": 0,
+   "numbers_ok": 0.4,
+   "wall_seconds": 134.8,
+   "num_turns": 9,
+   "cost_usd": 0.558
+  }
+ ],
+ "graded": [
+  {
+   "case": "ice-after-release",
+   "mode": "with",
+   "rep": 1,
+   "fact_score": 1.0,
+   "facts": {
+    "F1": "covered",
+    "F2": "covered",
+    "F3": "covered",
+    "F4": "covered",
+    "F5": "covered"
+   },
+   "wrong_claims": [],
+   "notes": "The answer ties the ICE start on 2030-04-03 to the cancellation of both 100-instance reservations and gives deduplicated counts (45/35 per night, 180/140 total). It rules out quota and gives now/next-time actions with owners; pausing the rollout appears only as a conditional last resort, not the main answer.",
+   "numbers": {
+    "F1": true,
+    "F2": true,
+    "F3": true,
+    "F4": null,
+    "F5": null
+   },
+   "wall_seconds": 68.8,
+   "num_turns": 8,
+   "cost_usd": 0.3075598,
+   "returncode": 0,
+   "skills_loaded": [
+    "graviton-rollout-capacity"
+   ],
+   "scripts_run": [
+    "classify.py"
+   ]
+  },
+  {
+   "case": "ice-after-release",
+   "mode": "with",
+   "rep": 2,
+   "fact_score": 1.0,
+   "facts": {
+    "F1": "covered",
+    "F2": "covered",
+    "F3": "covered",
+    "F4": "covered",
+    "F5": "covered"
+   },
+   "wrong_claims": [],
+   "notes": "The answer ties the ICE failures, starting the night of 04-03, to both 100-instance reservations being cancelled at 10:00 UTC, gives deduplicated counts (45/35 per night, 180/140 total), and rules out a quota cause. Its remediation re-reserves capacity, widens the fallback, sets a rollback condition before any release and names owners; it explicitly rejects a quota increase and pausing the rollout.",
+   "numbers": {
+    "F1": true,
+    "F2": true,
+    "F3": true,
+    "F4": null,
+    "F5": null
+   },
+   "wall_seconds": 85.3,
+   "num_turns": 8,
+   "cost_usd": 0.3112936,
+   "returncode": 0,
+   "skills_loaded": [
+    "graviton-rollout-capacity"
+   ],
+   "scripts_run": [
+    "classify.py",
+    "simulate_split.py"
+   ]
+  },
+  {
+   "case": "ice-after-release",
+   "mode": "without",
+   "rep": 1,
+   "fact_score": 0.7,
+   "facts": {
+    "F1": "covered",
+    "F2": "covered",
+    "F3": "missing",
+    "F4": "partly",
+    "F5": "covered"
+   },
+   "wrong_claims": [
+    "W4"
+   ],
+   "notes": "The answer correctly ties the ICE errors to the 2030-04-03 ODCR cancellation and gives good remediation with owners. However, it reports about 258 ICE per night (1,042 total; 574 in 1a, 468 in 1b) instead of about 45 and 35 per night, which points to counts inflated by duplicate records. It notes that the 16xlarge fallback never failed but never says this is not a quota problem.",
+   "numbers": {
+    "F1": true,
+    "F2": true,
+    "F3": false,
+    "F4": null,
+    "F5": null
+   },
+   "wall_seconds": 99.2,
+   "num_turns": 7,
+   "cost_usd": 0.3826136,
+   "returncode": 0,
+   "skills_loaded": [],
+   "scripts_run": []
+  },
+  {
+   "case": "ice-after-release",
+   "mode": "without",
+   "rep": 2,
+   "fact_score": 0.7,
+   "facts": {
+    "F1": "covered",
+    "F2": "covered",
+    "F3": "missing",
+    "F4": "partly",
+    "F5": "covered"
+   },
+   "wrong_claims": [
+    "W4"
+   ],
+   "notes": "The answer correctly ties the errors to the 2030-04-03 cancellation of both 100-instance reservations, but reports roughly 147/111 ICE errors per night instead of about 45/35, so it counted duplicate records. It confirms the 16xlarge fallback succeeded but never says this is not a quota problem.",
+   "numbers": {
+    "F1": true,
+    "F2": true,
+    "F3": false,
+    "F4": null,
+    "F5": null
+   },
+   "wall_seconds": 84.1,
+   "num_turns": 6,
+   "cost_usd": 0.33417199999999997,
+   "returncode": 0,
+   "skills_loaded": [],
+   "scripts_run": []
+  },
+  {
+   "case": "ice-two-causes",
+   "mode": "with",
+   "rep": 1,
+   "fact_score": 1.0,
+   "facts": {
+    "F1": "covered",
+    "F2": "covered",
+    "F3": "covered",
+    "F4": "covered",
+    "F5": "covered",
+    "F6": "covered"
+   },
+   "wrong_claims": [],
+   "notes": "The answer covers every rubric fact with the correct deduplicated counts (210/165/90/36/15, 465 of 1,161 unique requests from 3,754 rows) and assigns an owner to each action. It mentions the raw figure of 1,517 ICE rows only to warn against quoting it, and it recommends a quota increase only for the VcpuLimitExceeded errors, so no wrong claims apply.",
+   "numbers": {
+    "F1": true,
+    "F2": true,
+    "F3": true,
+    "F4": true,
+    "F5": true,
+    "F6": null
+   },
+   "wall_seconds": 128.1,
+   "num_turns": 11,
+   "cost_usd": 0.5624581999999999,
+   "returncode": 0,
+   "skills_loaded": [
+    "graviton-rollout-capacity"
+   ],
+   "scripts_run": [
+    "classify.py",
+    "daily_page.py",
+    "weekly_report.py"
+   ]
+  },
+  {
+   "case": "ice-two-causes",
+   "mode": "with",
+   "rep": 2,
+   "fact_score": 1.0,
+   "facts": {
+    "F1": "covered",
+    "F2": "covered",
+    "F3": "covered",
+    "F4": "covered",
+    "F5": "covered",
+    "F6": "covered"
+   },
+   "wrong_claims": [],
+   "notes": "All facts are stated correctly with the right numbers and owners, and the answer explicitly says not to file a quota increase for the InsufficientInstanceCapacity errors. Two minor internal inconsistencies: it lists 'four' causes in the verdict but 'five' later, and it says m8g.16xlarge launched 'without errors' in eu-west-1b despite the subnet errors there.",
+   "numbers": {
+    "F1": true,
+    "F2": true,
+    "F3": true,
+    "F4": true,
+    "F5": true,
+    "F6": null
+   },
+   "wall_seconds": 88.3,
+   "num_turns": 10,
+   "cost_usd": 0.3875295999999999,
+   "returncode": 0,
+   "skills_loaded": [
+    "graviton-rollout-capacity"
+   ],
+   "scripts_run": [
+    "classify.py"
+   ]
+  },
+  {
+   "case": "ice-two-causes",
+   "mode": "without",
+   "rep": 1,
+   "fact_score": 0.833,
+   "facts": {
+    "F1": "covered",
+    "F2": "partly",
+    "F3": "covered",
+    "F4": "covered",
+    "F5": "partly",
+    "F6": "covered"
+   },
+   "wrong_claims": [],
+   "notes": "F2 is partly covered: the answer flags that the 240-free snapshot conflicts with the 1a failures and routes it to the account team, but explains it as an AZ-name mapping issue rather than an account-level cause. F5 is partly covered: dedup is correct (1,161 of 3,754), but the answer gives per-night figures and never states the 465 total capacity failures.",
+   "numbers": {
+    "F1": false,
+    "F2": false,
+    "F3": false,
+    "F4": true,
+    "F5": false,
+    "F6": null
+   },
+   "wall_seconds": 131.2,
+   "num_turns": 9,
+   "cost_usd": 0.5312604000000001,
+   "returncode": 0,
+   "skills_loaded": [],
+   "scripts_run": []
+  },
+  {
+   "case": "ice-two-causes",
+   "mode": "without",
+   "rep": 2,
+   "fact_score": 0.75,
+   "facts": {
+    "F1": "partly",
+    "F2": "partly",
+    "F3": "covered",
+    "F4": "covered",
+    "F5": "partly",
+    "F6": "covered"
+   },
+   "wrong_claims": [],
+   "notes": "F1 gives only the combined 375 m8g.24xlarge ICEs, not the 210/165 per-AZ split. F2 notes the 240-free snapshot contradiction and sends it to the account team, but still labels it a pool shortage and explains it as AZ-name mapping rather than saying pool depth doesn't explain it. F5 describes both duplicate types and the 1,161/3,754 counts, but never states 465 total capacity failures (only 516 failures overall).",
+   "numbers": {
+    "F1": false,
+    "F2": true,
+    "F3": true,
+    "F4": true,
+    "F5": false,
+    "F6": null
+   },
+   "wall_seconds": 138.4,
+   "num_turns": 9,
+   "cost_usd": 0.5846182000000001,
+   "returncode": 0,
+   "skills_loaded": [],
+   "scripts_run": []
+  }
+ ]
+}

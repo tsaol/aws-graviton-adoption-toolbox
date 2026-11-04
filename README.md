@@ -10,12 +10,40 @@
   <img alt="License: MIT-0" src="https://img.shields.io/badge/license-MIT--0-blue.svg">
   <img alt="Status: early development" src="https://img.shields.io/badge/status-early%20development-orange.svg">
   <img alt="Agent Skills" src="https://img.shields.io/badge/format-Agent%20Skills-6f42c1.svg">
-  <img alt="Works with Claude Code, Kiro, Codex, Copilot" src="https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20Kiro%20%7C%20Codex%20%7C%20Copilot-2dd4bf.svg">
+  <img alt="Tested with Claude Code" src="https://img.shields.io/badge/tested%20with-Claude%20Code-2dd4bf.svg">
+  <img alt="Not yet tested: Kiro, Codex, Copilot" src="https://img.shields.io/badge/not%20yet%20tested-Kiro%20%7C%20Codex%20%7C%20Copilot-lightgrey.svg">
   <img alt="AWS Graviton" src="https://img.shields.io/badge/AWS-Graviton-ff9900.svg?logo=amazonaws&logoColor=white">
 </p>
 
 > [!WARNING]
-> **Early development.** v0.1 first cut is in: see the [test report](docs/test-report-2026-11-04.md). Not ready for production use yet.
+> **Early development.** v0.1 round 2 is in: see the [test report](docs/test-report-2026-11-04-r2.md). Not ready for production use yet.
+
+The toolbox is a set of [Agent Skills](https://agentskills.io), the format used by Claude Code, Kiro, Codex and GitHub Copilot. So far it has been tested with Claude Code only.
+
+## Quick start (Claude Code)
+
+Requirements: Claude Code, Python 3.9+ (standard library only). For your own account data, the read-only permissions in [`graviton-rollout-capacity/iam/readonly-policy.json`](graviton-rollout-capacity/iam/readonly-policy.json).
+
+1. **Install the skills.** For one project, copy them into the project's `.claude/skills/`; for all projects, use `~/.claude/skills/` instead:
+
+   ```bash
+   git clone https://github.com/tsaol/aws-graviton-adoption-toolbox.git
+   mkdir -p .claude/skills
+   cp -r aws-graviton-adoption-toolbox/graviton-playbook aws-graviton-adoption-toolbox/graviton-rollout-capacity .claude/skills/
+   ```
+
+2. **Try it on the sample case** (synthetic data):
+
+   ```bash
+   cp -r aws-graviton-adoption-toolbox/replay-bench/cases/ice-two-causes/input ./input
+   claude "Our Auto Scaling groups fail to launch m8g.24xlarge at night since the Graviton rollout started. Evidence is in ./input. Why, and should we pause?"
+   ```
+
+   Claude picks up `graviton-rollout-capacity` by itself, runs `classify.py` and answers with the causes, an owner for each action, and what the data cannot show. Expected findings for this case are in [`answer.json`](replay-bench/cases/ice-two-causes/answer.json).
+
+3. **Use it on your own account.** Export `RunInstances` events with `aws cloudtrail lookup-events` (or use your CloudTrail S3 files), plus the subnet map and, if you have it, hourly CUR usage. See [`graviton-rollout-capacity/SKILL.md`](graviton-rollout-capacity/SKILL.md) for every command, the pre-rollout check and the weekly report.
+
+Kiro, Codex and GitHub Copilot use the same Agent Skills format, but the toolbox has **not been tested** with them yet.
 
 ## Why this exists
 
@@ -57,7 +85,7 @@ flowchart LR
 | 🧭 | [`graviton-playbook/`](graviton-playbook/) | Entry skill. Asks where you are stuck, routes you to the right stage tool, and names the decision the customer has to make at each stage | Original |
 | 🔌 | [`integrations/`](integrations/) | How to call [Arm MCP Server](https://github.com/arm/mcp) / Kiro Graviton Migration Power, AWS Transform custom (Java), graviton-readiness and the Graviton Savings Dashboard | Integrated |
 | 📏 | [`references/`](references/) | Benchmark comparison checklist (same AZ, same size class, normalized per unit of traffic, pass bars agreed up front) and a canary checklist | Original |
-| 🚀 | [`graviton-rollout-capacity/`](graviton-rollout-capacity/) | **Rollout & capacity skill.** Uses CloudTrail request evidence to tell insufficient capacity from quota from other errors, then gives a pre-rollout check, reservation batch planning, a daily rollout page and a weekly adoption health report | ⭐ Original |
+| 🚀 | [`graviton-rollout-capacity/`](graviton-rollout-capacity/) | **Rollout & capacity skill.** Uses CloudTrail request evidence (and CUR hourly usage) to tell insufficient capacity from quota from other errors. Also: a pre-rollout check (7 checks, PASS / FAIL / NOT RUN), reservation batch planning, a daily rollout page and a weekly adoption health report. Ships a read-only IAM policy | ⭐ Original |
 | 🔬 | [`arm-only-failure-triage/`](arm-only-failure-triage/) | **Arm-only failure triage skill + repro harness.** Rules out memory ordering, compiler bugs, allocator mix-ups, `char` signedness, floating point and wrong native libraries, with a repro on both x86 and Graviton, before naming a root cause | ⭐ Original |
 | 🏁 | [`replay-bench/`](replay-bench/) | **Replay benchmark.** Sanitized real incidents and public post-mortems. Each case is run with and without the toolbox and scored on root cause, time taken and wrong claims | ⭐ Original |
 
@@ -65,11 +93,12 @@ flowchart LR
 
 - **Scripts produce facts; the model makes the judgment.** Dedupe, classification and capacity math happen in scripts, so the results can be checked.
 - **Honesty rules.** A check that was not run is reported as `NOT RUN`. No root cause is stated until it has been reproduced on both architectures.
-- **Read-only by default.** Skills that touch an AWS account ship a read-only IAM policy and never launch instances or change quotas on their own.
+- **Read-only by default.** Skills that touch an AWS account ship a read-only IAM policy (checked against the AWS service authorization reference: Read/List actions only) and never launch instances or change quotas on their own.
 - **No customer data.** Fixtures and replay cases are sanitized or synthetic.
 
 ## Roadmap
 
+- [x] **v0.1 round 2**: two-layer dedupe, CUR alignment, pre-rollout check, weekly adoption health, read-only IAM policy. [Test report](docs/test-report-2026-11-04-r2.md): 23/23 unit tests; quick start, pre-rollout and weekly runs all used the skill; replay with the toolbox 1.0 vs 0.70-0.79 without (the main failure without it: counts inflated 3-6x)
 - [x] **v0.1 first cut**: `graviton-playbook` + `graviton-rollout-capacity` + 2 replay cases. [Test report](docs/test-report-2026-11-04.md): 13/13 unit tests pass; with the toolbox, Opus 5.5 covered every rubric fact in 4/4 runs (score 1.0, vs 0.90-0.92 without), about 10-15% faster
 - [ ] **v0.2**: `arm-only-failure-triage` + repro harness, 5 replay cases
 - [ ] **Later**: benchmark comparison checklist, weekly adoption report, 20+ replay cases, results for Kiro / Claude Code / Codex / Copilot

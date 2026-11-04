@@ -1,7 +1,7 @@
 After the Graviton rollout, the customer's web tier launched fine for the first two nights. Since then, launches fail again at night. The customer asks why it came back and what to do.
 
 The files in ./input are:
-- events.jsonl: CloudTrail events exported from their account (region eu-west-1), including RunInstances and capacity reservation events.
+- events.jsonl.gz: CloudTrail events exported from their account (region eu-west-1), including RunInstances and capacity reservation events.
 - subnet-map.json: subnet ID to Availability Zone.
 - az-ids.json: Availability Zone name to AZ ID.
 

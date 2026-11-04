@@ -1,0 +1,15 @@
+# IAM policy check
+date: 2026-11-04T11:07:36Z
+cloudtrail:LookupEvents                       read
+ec2:DescribeAvailabilityZones                 list
+ec2:DescribeSubnets                           list
+ec2:DescribeInstanceTypeOfferings             list
+ec2:DescribeInstanceTypes                     list
+ec2:DescribeCapacityReservations              list
+ec2:DescribeCapacityReservationFleets         list
+ec2:GetSpotPlacementScores                    read
+autoscaling:DescribeAutoScalingGroups         list
+autoscaling:DescribeScalingActivities         list
+servicequotas:GetServiceQuota                 read
+servicequotas:ListServiceQuotas               read
+RESULT: PASS: all actions exist and are read/list only

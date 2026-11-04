@@ -1,0 +1,32 @@
+# Unit tests: graviton-rollout-capacity
+date: 2026-11-04T11:07:35Z
+python: Python 3.9.25
+
+test_ice_only_after_cancel (test_scripts.TestAfterRelease) ... ok
+test_reservation_events (test_scripts.TestAfterRelease) ... ok
+test_codes (test_scripts.TestBuckets) ... ok
+test_night_window_crosses_midnight (test_scripts.TestBuckets) ... ok
+test_cli_and_page (test_scripts.TestCli) ... ok
+test_is_graviton (test_scripts.TestEc2Util) ... ok
+test_vcpus (test_scripts.TestEc2Util) ... ok
+test_directory_input_dedupes_across_files (test_scripts.TestInputFormats) ... ok
+test_same_result_for_all_formats (test_scripts.TestInputFormats) ... ok
+test_minimal_reports_not_run (test_scripts.TestPrecheck) ... ok
+test_not_ready (test_scripts.TestPrecheck) ... ok
+test_ready (test_scripts.TestPrecheck) ... ok
+test_batches (test_scripts.TestSimulate) ... ok
+test_az_from_subnet_and_az_id (test_scripts.TestTwoCauses) ... ok
+test_cur_alignment (test_scripts.TestTwoCauses) ... ok
+test_dedupe_two_layers (test_scripts.TestTwoCauses) ... ok
+test_fallback_fails_only_in_az_a_at_01_to_03 (test_scripts.TestTwoCauses) ... ok
+test_nights (test_scripts.TestTwoCauses) ... ok
+test_primary_short_in_both_azs (test_scripts.TestTwoCauses) ... ok
+test_quota_and_other_are_separate (test_scripts.TestTwoCauses) ... ok
+test_snapshot_flags (test_scripts.TestTwoCauses) ... ok
+test_ice_nights_from_summary (test_scripts.TestWeekly) ... ok
+test_new_capacity_share (test_scripts.TestWeekly) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.393s
+
+OK
