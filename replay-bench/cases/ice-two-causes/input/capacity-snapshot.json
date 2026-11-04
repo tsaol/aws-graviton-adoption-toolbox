@@ -1,0 +1,74 @@
+[
+ {
+  "availabilityZone": "eu-west-1a",
+  "free": 240,
+  "instanceType": "m8g.16xlarge",
+  "time": "2030-03-04T01:30:00Z"
+ },
+ {
+  "availabilityZone": "eu-west-1a",
+  "free": 240,
+  "instanceType": "m8g.16xlarge",
+  "time": "2030-03-04T02:30:00Z"
+ },
+ {
+  "availabilityZone": "eu-west-1a",
+  "free": 0,
+  "instanceType": "m8g.24xlarge",
+  "time": "2030-03-03T22:00:00Z"
+ },
+ {
+  "availabilityZone": "eu-west-1b",
+  "free": 0,
+  "instanceType": "m8g.24xlarge",
+  "time": "2030-03-03T22:00:00Z"
+ },
+ {
+  "availabilityZone": "eu-west-1a",
+  "free": 240,
+  "instanceType": "m8g.16xlarge",
+  "time": "2030-03-05T01:30:00Z"
+ },
+ {
+  "availabilityZone": "eu-west-1a",
+  "free": 240,
+  "instanceType": "m8g.16xlarge",
+  "time": "2030-03-05T02:30:00Z"
+ },
+ {
+  "availabilityZone": "eu-west-1a",
+  "free": 0,
+  "instanceType": "m8g.24xlarge",
+  "time": "2030-03-04T22:00:00Z"
+ },
+ {
+  "availabilityZone": "eu-west-1b",
+  "free": 0,
+  "instanceType": "m8g.24xlarge",
+  "time": "2030-03-04T22:00:00Z"
+ },
+ {
+  "availabilityZone": "eu-west-1a",
+  "free": 240,
+  "instanceType": "m8g.16xlarge",
+  "time": "2030-03-06T01:30:00Z"
+ },
+ {
+  "availabilityZone": "eu-west-1a",
+  "free": 240,
+  "instanceType": "m8g.16xlarge",
+  "time": "2030-03-06T02:30:00Z"
+ },
+ {
+  "availabilityZone": "eu-west-1a",
+  "free": 0,
+  "instanceType": "m8g.24xlarge",
+  "time": "2030-03-05T22:00:00Z"
+ },
+ {
+  "availabilityZone": "eu-west-1b",
+  "free": 0,
+  "instanceType": "m8g.24xlarge",
+  "time": "2030-03-05T22:00:00Z"
+ }
+]

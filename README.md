@@ -15,7 +15,7 @@
 </p>
 
 > [!WARNING]
-> **Early development (v0.1 in progress).** Nothing here is ready for production use yet.
+> **Early development.** v0.1 first cut is in: see the [test report](docs/test-report-2026-11-04.md). Not ready for production use yet.
 
 ## Why this exists
 
@@ -70,7 +70,7 @@ flowchart LR
 
 ## Roadmap
 
-- [ ] **v0.1**: `graviton-playbook` + `graviton-rollout-capacity` + 2 replay cases, plus a "which existing tool to use" table for the other stages
+- [x] **v0.1 first cut**: `graviton-playbook` + `graviton-rollout-capacity` + 2 replay cases. [Test report](docs/test-report-2026-11-04.md): 13/13 unit tests pass; with the toolbox, Opus 5.5 covered every rubric fact in 4/4 runs (score 1.0, vs 0.90-0.92 without), about 10-15% faster
 - [ ] **v0.2**: `arm-only-failure-triage` + repro harness, 5 replay cases
 - [ ] **Later**: benchmark comparison checklist, weekly adoption report, 20+ replay cases, results for Kiro / Claude Code / Codex / Copilot
 

@@ -1,0 +1,16 @@
+{
+ "case": "ice-after-release",
+ "facts": [
+  {"id": "F1", "text": "There were no capacity errors on the nights of 2030-04-01 and 2030-04-02; m8g.24xlarge InsufficientInstanceCapacity errors start on the night of 2030-04-03 and continue every night after, in both AZs.", "numbers": ["2030-04-03"]},
+  {"id": "F2", "text": "The errors started right after both m8g.24xlarge capacity reservations (100 instances each, eu-west-1a and eu-west-1b) were cancelled with CancelCapacityReservation on 2030-04-03 around 10:00 UTC. Without reservations the shared pool cannot cover the peak.", "numbers": ["100"]},
+  {"id": "F3", "text": "Gives correct sizes for the problem: per night about 45 failed m8g.24xlarge in eu-west-1a and about 35 in eu-west-1b (180 and 140 in total over the 4 nights from 2030-04-03).", "numbers": ["45", "35"]},
+  {"id": "F4", "text": "The m8g.16xlarge fallback launched successfully (no errors); this is not a quota problem.", "numbers": []},
+  {"id": "F5", "text": "Now: re-create or keep (part of) the reservations for the peak, possibly in batches, and rely on the 16xlarge fallback meanwhile. Next time: agree a rollback condition / check peak capacity BEFORE releasing reservations. Names owners (customer platform team, AWS account team / TAM)."}
+ ],
+ "wrong_claims": [
+  {"id": "W1", "text": "Suggests a quota increase as the fix."},
+  {"id": "W2", "text": "Says the cause is unknown or random, or does not connect the errors to the cancelled reservations."},
+  {"id": "W3", "text": "Recommends pausing or rolling back the Graviton rollout as the main answer."},
+  {"id": "W4", "text": "Reports failure counts inflated by duplicate records."}
+ ]
+}

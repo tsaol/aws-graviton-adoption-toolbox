@@ -1,0 +1,269 @@
+{
+ "model": "jp.anthropic.claude-opus-5-5",
+ "judge": "jp.anthropic.claude-opus-5-5",
+ "date": "2026-11-04T10:10:14.641866Z",
+ "summary": [
+  {
+   "case": "ice-after-release",
+   "mode": "with",
+   "runs": 2,
+   "fact_score": 1.0,
+   "wrong_claims": 0,
+   "numbers_ok": 1.0,
+   "wall_seconds": 83.8,
+   "num_turns": 8.5,
+   "cost_usd": 0.297
+  },
+  {
+   "case": "ice-after-release",
+   "mode": "without",
+   "runs": 2,
+   "fact_score": 0.9,
+   "wrong_claims": 0,
+   "numbers_ok": 1.0,
+   "wall_seconds": 97.6,
+   "num_turns": 7,
+   "cost_usd": 0.334
+  },
+  {
+   "case": "ice-two-causes",
+   "mode": "with",
+   "runs": 2,
+   "fact_score": 1.0,
+   "wrong_claims": 0,
+   "numbers_ok": 1.0,
+   "wall_seconds": 94.3,
+   "num_turns": 10,
+   "cost_usd": 0.342
+  },
+  {
+   "case": "ice-two-causes",
+   "mode": "without",
+   "runs": 2,
+   "fact_score": 0.917,
+   "wrong_claims": 0,
+   "numbers_ok": 0.8,
+   "wall_seconds": 103.45,
+   "num_turns": 6.5,
+   "cost_usd": 0.374
+  }
+ ],
+ "graded": [
+  {
+   "case": "ice-after-release",
+   "mode": "with",
+   "rep": 1,
+   "fact_score": 1.0,
+   "facts": {
+    "F1": "covered",
+    "F2": "covered",
+    "F3": "covered",
+    "F4": "covered",
+    "F5": "covered"
+   },
+   "wrong_claims": [],
+   "notes": "The answer ties ICE onset on 2030-04-03 to both 100-instance reservation cancellations and gives deduplicated per-night failures (45/35, totalling 180/140). It also covers the working fallback, rules out quota, and gives batched re-reservation and pre-release checks with named owners; it explicitly rejects a quota increase and pausing the rollout.",
+   "numbers": {
+    "F1": true,
+    "F2": true,
+    "F3": true,
+    "F4": null,
+    "F5": null
+   },
+   "wall_seconds": 83.5,
+   "num_turns": 9,
+   "cost_usd": 0.2945024,
+   "returncode": 0
+  },
+  {
+   "case": "ice-after-release",
+   "mode": "with",
+   "rep": 2,
+   "fact_score": 1.0,
+   "facts": {
+    "F1": "covered",
+    "F2": "covered",
+    "F3": "covered",
+    "F4": "covered",
+    "F5": "covered"
+   },
+   "wrong_claims": [],
+   "notes": "The answer ties the ICE errors, which start on the night of 2030-04-03, to the cancellation of both 100-instance reservations at 10:00Z. It gives correct deduplicated counts (45/35 per night, 180/140 total), rules out quota, and gives batched re-reservation, a rollback-condition lesson and named owners, with no wrong claims.",
+   "numbers": {
+    "F1": true,
+    "F2": true,
+    "F3": true,
+    "F4": null,
+    "F5": null
+   },
+   "wall_seconds": 84.1,
+   "num_turns": 8,
+   "cost_usd": 0.2997594,
+   "returncode": 0
+  },
+  {
+   "case": "ice-after-release",
+   "mode": "without",
+   "rep": 1,
+   "fact_score": 0.9,
+   "facts": {
+    "F1": "covered",
+    "F2": "covered",
+    "F3": "covered",
+    "F4": "partly",
+    "F5": "covered"
+   },
+   "wrong_claims": [],
+   "notes": "The answer clearly ties the 45/35 nightly m8g.24xlarge ICE failures to the 2030-04-03 cancellation of both 100-instance reservations, after removing duplicate records. It confirms the 16xlarge fallback succeeded but never explicitly says this is not a quota problem, so F4 is only partly covered.",
+   "numbers": {
+    "F1": true,
+    "F2": true,
+    "F3": true,
+    "F4": null,
+    "F5": null
+   },
+   "wall_seconds": 93.8,
+   "num_turns": 7,
+   "cost_usd": 0.3288834,
+   "returncode": 0
+  },
+  {
+   "case": "ice-after-release",
+   "mode": "without",
+   "rep": 2,
+   "fact_score": 0.9,
+   "facts": {
+    "F1": "covered",
+    "F2": "covered",
+    "F3": "covered",
+    "F4": "partly",
+    "F5": "covered"
+   },
+   "wrong_claims": [],
+   "notes": "The answer ties the ICE errors to the 2030-04-03 reservation cancellations and gives deduplicated per-night counts (45 a / 35 b). F4 is only partly covered: it says the m8g.16xlarge fallback never failed but never states that this rules out a quota problem.",
+   "numbers": {
+    "F1": true,
+    "F2": true,
+    "F3": true,
+    "F4": null,
+    "F5": null
+   },
+   "wall_seconds": 101.4,
+   "num_turns": 7,
+   "cost_usd": 0.3390166,
+   "returncode": 0
+  },
+  {
+   "case": "ice-two-causes",
+   "mode": "with",
+   "rep": 1,
+   "fact_score": 1.0,
+   "facts": {
+    "F1": "covered",
+    "F2": "covered",
+    "F3": "covered",
+    "F4": "covered",
+    "F5": "covered",
+    "F6": "covered"
+   },
+   "wrong_claims": [],
+   "notes": "All four causes are correctly separated, with the right deduplicated counts (210/165/90/36/15, 128 duplicates, 465 capacity errors) and owners. The hedged remark that the web fleet shares the Standard vCPU quota with batch ties the quota errors to quota headroom, not to Graviton capacity, so it does not trigger W5.",
+   "numbers": {
+    "F1": true,
+    "F2": true,
+    "F3": true,
+    "F4": true,
+    "F5": true,
+    "F6": null
+   },
+   "wall_seconds": 99.8,
+   "num_turns": 11,
+   "cost_usd": 0.38014960000000003,
+   "returncode": 0
+  },
+  {
+   "case": "ice-two-causes",
+   "mode": "with",
+   "rep": 2,
+   "fact_score": 1.0,
+   "facts": {
+    "F1": "covered",
+    "F2": "covered",
+    "F3": "covered",
+    "F4": "covered",
+    "F5": "covered",
+    "F6": "covered"
+   },
+   "wrong_claims": [],
+   "notes": "All six facts are stated correctly with the right numbers (210/165/90/240/36/15/128/465), and each action has an owner. The answer says outright that a quota increase does not fix ICE, recommends continuing the rollout rather than pausing, and does not blame the quota or subnet errors on Graviton capacity.",
+   "numbers": {
+    "F1": true,
+    "F2": true,
+    "F3": true,
+    "F4": true,
+    "F5": true,
+    "F6": null
+   },
+   "wall_seconds": 88.8,
+   "num_turns": 9,
+   "cost_usd": 0.30432159999999997,
+   "returncode": 0
+  },
+  {
+   "case": "ice-two-causes",
+   "mode": "without",
+   "rep": 1,
+   "fact_score": 0.917,
+   "facts": {
+    "F1": "covered",
+    "F2": "partly",
+    "F3": "covered",
+    "F4": "covered",
+    "F5": "covered",
+    "F6": "covered"
+   },
+   "wrong_claims": [],
+   "notes": "F2 is only partly covered: the answer cites the 240-free snapshot against the 90 errors, but calls the failures an AZ-specific pool shortage and explains the conflict as AZ-name mapping rather than escalating to the account team to check account-level limits. That is not W2, because the answer does not ignore the snapshot. The quota increase it recommends targets VcpuLimitExceeded, not the capacity errors, so W1 does not apply.",
+   "numbers": {
+    "F1": false,
+    "F2": true,
+    "F3": true,
+    "F4": true,
+    "F5": true,
+    "F6": null
+   },
+   "wall_seconds": 109.0,
+   "num_turns": 7,
+   "cost_usd": 0.4040488000000001,
+   "returncode": 0
+  },
+  {
+   "case": "ice-two-causes",
+   "mode": "without",
+   "rep": 2,
+   "fact_score": 0.917,
+   "facts": {
+    "F1": "covered",
+    "F2": "covered",
+    "F3": "partly",
+    "F4": "covered",
+    "F5": "covered",
+    "F6": "covered"
+   },
+   "wrong_claims": [],
+   "notes": "F1 gives 70 (1a) and 55 (1b) per night over 3 nights, which is 210/165, though those totals are not written out. F3 is only partly covered: it correctly identifies batch-etl-asg's vCPU quota and the Service Quotas fix, but says the Graviton rollout indirectly worsens it, which contradicts 'unrelated'. This blames the rollout's vCPU usage, not Graviton pool capacity, so W5 is not flagged.",
+   "numbers": {
+    "F1": false,
+    "F2": true,
+    "F3": true,
+    "F4": true,
+    "F5": true,
+    "F6": null
+   },
+   "wall_seconds": 97.9,
+   "num_turns": 6,
+   "cost_usd": 0.3441402,
+   "returncode": 0
+  }
+ ]
+}

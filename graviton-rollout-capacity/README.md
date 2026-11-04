@@ -1,6 +1,10 @@
 # graviton-rollout-capacity
 
-Rollout & capacity skill (planned for v0.1).
+Rollout & capacity skill (v0.1 first cut). The agent-facing instructions are in [SKILL.md](SKILL.md).
+
+```bash
+python3 -m unittest discover -s tests -v   # 13 tests, uses the replay-bench synthetic cases
+```
 
 | Phase | What it does |
 |---|---|
@@ -11,4 +15,4 @@ Rollout & capacity skill (planned for v0.1).
 | 4 Daily page | Launches and failures per night, fallback types used, zero-ICE days, Arm share of new capacity |
 | 5 Hand-off | What public data can't tell, packaged as evidence for the account team |
 
-`scripts/` holds the deterministic parts; `tests/fixtures/` holds synthetic data only.
+`scripts/` holds the deterministic parts (`classify.py`, `simulate_split.py`, `daily_page.py`); test data is synthetic and lives in `replay-bench/cases/`.

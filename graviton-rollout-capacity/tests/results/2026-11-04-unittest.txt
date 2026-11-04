@@ -1,0 +1,23 @@
+# Unit tests: graviton-rollout-capacity
+date: 2026-11-04T10:08:36Z
+python: Python 3.9.25
+commit base: 2c8f8a4
+
+test_ice_only_after_cancel (test_scripts.TestAfterRelease) ... ok
+test_reservation_events (test_scripts.TestAfterRelease) ... ok
+test_codes (test_scripts.TestBuckets) ... ok
+test_night_window_crosses_midnight (test_scripts.TestBuckets) ... ok
+test_cli_and_page (test_scripts.TestCli) ... ok
+test_batches (test_scripts.TestSimulate) ... ok
+test_az_from_subnet_and_az_id (test_scripts.TestTwoCauses) ... ok
+test_dedupe (test_scripts.TestTwoCauses) ... ok
+test_fallback_fails_only_in_az_a_at_01_to_03 (test_scripts.TestTwoCauses) ... ok
+test_nights (test_scripts.TestTwoCauses) ... ok
+test_primary_short_in_both_azs (test_scripts.TestTwoCauses) ... ok
+test_quota_and_other_are_separate (test_scripts.TestTwoCauses) ... ok
+test_snapshot_flags (test_scripts.TestTwoCauses) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.117s
+
+OK

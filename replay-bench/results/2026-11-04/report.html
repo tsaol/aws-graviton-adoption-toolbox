@@ -1,0 +1,30 @@
+<!doctype html><meta charset='utf-8'><title>Replay benchmark</title><style>body{font-family:sans-serif;max-width:1000px;margin:24px auto}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:4px 8px}th{background:#f3f3f3}</style><h1>Replay benchmark results (2026-11-04)</h1><p>Agent model jp.anthropic.claude-opus-5-5; judge jp.anthropic.claude-opus-5-5.</p><table><tr><th>Case</th><th>Mode</th><th>Runs</th><th>Fact score</th><th>Wrong claims/run</th><th>Key numbers right</th><th>Time (s)</th><th>Turns</th><th>Cost (USD)</th></tr><tr><td>ice-after-release</td><td><b>with</b></td><td>2</td><td>1.0</td><td>0</td><td>1.0</td><td>83.8</td><td>8.5</td><td>0.297</td></tr><tr><td>ice-after-release</td><td><b>without</b></td><td>2</td><td>0.9</td><td>0</td><td>1.0</td><td>97.6</td><td>7</td><td>0.334</td></tr><tr><td>ice-two-causes</td><td><b>with</b></td><td>2</td><td>1.0</td><td>0</td><td>1.0</td><td>94.3</td><td>10</td><td>0.342</td></tr><tr><td>ice-two-causes</td><td><b>without</b></td><td>2</td><td>0.917</td><td>0</td><td>0.8</td><td>103.45</td><td>6.5</td><td>0.374</td></tr></table><pre># Replay benchmark results (2026-11-04)
+
+- Agent: Claude Code headless (`claude -p`), model `jp.anthropic.claude-opus-5-5`, isolated config, same task text in both modes
+- Judge: `jp.anthropic.claude-opus-5-5` on Amazon Bedrock, given only the rubric and the answer
+- **with** = workspace has the toolbox skills in `.claude/skills/`; **without** = same workspace, no skills
+
+## Summary
+
+| Case | Mode | Runs | Fact score | Wrong claims / run | Key numbers right | Time (s) | Turns | Cost (USD) |
+|---|---|---|---|---|---|---|---|---|
+| ice-after-release | **with** | 2 | 1.0 | 0 | 1.0 | 83.8 | 8.5 | 0.297 |
+| ice-after-release | **without** | 2 | 0.9 | 0 | 1.0 | 97.6 | 7 | 0.334 |
+| ice-two-causes | **with** | 2 | 1.0 | 0 | 1.0 | 94.3 | 10 | 0.342 |
+| ice-two-causes | **without** | 2 | 0.917 | 0 | 0.8 | 103.45 | 6.5 | 0.374 |
+
+Fact score: covered = 1, partly = 0.5, missing = 0, averaged over the rubric facts. Key numbers right: share of facts whose numbers all appear in the answer.
+
+## Per run
+
+- `ice-after-release` **with** #1: score 1.0, facts F1:C F2:C F3:C F4:C F5:C, wrong claims none, 83.5 s. The answer ties ICE onset on 2030-04-03 to both 100-instance reservation cancellations and gives deduplicated per-night failures (45/35, totalling 180/140). It also covers the working fallback, rules out quota, and gives batched re-reservation and pre-release checks with named owners; it explicitly rejects a quota increase and pausing the rollout.
+- `ice-after-release` **with** #2: score 1.0, facts F1:C F2:C F3:C F4:C F5:C, wrong claims none, 84.1 s. The answer ties the ICE errors, which start on the night of 2030-04-03, to the cancellation of both 100-instance reservations at 10:00Z. It gives correct deduplicated counts (45/35 per night, 180/140 total), rules out quota, and gives batched re-reservation, a rollback-condition lesson and named owners, with no wrong claims.
+- `ice-after-release` **without** #1: score 0.9, facts F1:C F2:C F3:C F4:P F5:C, wrong claims none, 93.8 s. The answer clearly ties the 45/35 nightly m8g.24xlarge ICE failures to the 2030-04-03 cancellation of both 100-instance reservations, after removing duplicate records. It confirms the 16xlarge fallback succeeded but never explicitly says this is not a quota problem, so F4 is only partly covered.
+- `ice-after-release` **without** #2: score 0.9, facts F1:C F2:C F3:C F4:P F5:C, wrong claims none, 101.4 s. The answer ties the ICE errors to the 2030-04-03 reservation cancellations and gives deduplicated per-night counts (45 a / 35 b). F4 is only partly covered: it says the m8g.16xlarge fallback never failed but never states that this rules out a quota problem.
+- `ice-two-causes` **with** #1: score 1.0, facts F1:C F2:C F3:C F4:C F5:C F6:C, wrong claims none, 99.8 s. All four causes are correctly separated, with the right deduplicated counts (210/165/90/36/15, 128 duplicates, 465 capacity errors) and owners. The hedged remark that the web fleet shares the Standard vCPU quota with batch ties the quota errors to quota headroom, not to Graviton capacity, so it does not trigger W5.
+- `ice-two-causes` **with** #2: score 1.0, facts F1:C F2:C F3:C F4:C F5:C F6:C, wrong claims none, 88.8 s. All six facts are stated correctly with the right numbers (210/165/90/240/36/15/128/465), and each action has an owner. The answer says outright that a quota increase does not fix ICE, recommends continuing the rollout rather than pausing, and does not blame the quota or subnet errors on Graviton capacity.
+- `ice-two-causes` **without** #1: score 0.917, facts F1:C F2:P F3:C F4:C F5:C F6:C, wrong claims none, 109.0 s. F2 is only partly covered: the answer cites the 240-free snapshot against the 90 errors, but calls the failures an AZ-specific pool shortage and explains the conflict as AZ-name mapping rather than escalating to the account team to check account-level limits. That is not W2, because the answer does not ignore the snapshot. The quota increase it recommends targets VcpuLimitExceeded, not the capacity errors, so W1 does not apply.
+- `ice-two-causes` **without** #2: score 0.917, facts F1:C F2:C F3:P F4:C F5:C F6:C, wrong claims none, 97.9 s. F1 gives 70 (1a) and 55 (1b) per night over 3 nights, which is 210/165, though those totals are not written out. F3 is only partly covered: it correctly identifies batch-etl-asg&#x27;s vCPU quota and the Service Quotas fix, but says the Graviton rollout indirectly worsens it, which contradicts &#x27;unrelated&#x27;. This blames the rollout&#x27;s vCPU usage, not Graviton pool capacity, so W5 is not flagged.
+
+Answers are in `answers/`. Raw runs in `runs.json`, grades in `scores.json`.
+</pre>

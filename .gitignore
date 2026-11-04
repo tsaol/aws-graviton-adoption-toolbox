@@ -13,10 +13,8 @@ __pycache__/
 .venv/
 .pytest_cache/
 
-# Outputs
+# Outputs (test results under replay-bench/results/ and tests/results/ ARE committed)
 out/
-reports/*.html
-!replay-bench/report.example.html
 
 # OS / editor
 .DS_Store

@@ -1,0 +1,18 @@
+{
+ "case": "ice-two-causes",
+ "facts": [
+  {"id": "F1", "text": "m8g.24xlarge (primary) fails with InsufficientInstanceCapacity in BOTH eu-west-1a and eu-west-1b, at night peak (about 20:00-02:00 UTC): the pool for this size is short at peak.", "numbers": ["210", "165"]},
+  {"id": "F2", "text": "m8g.16xlarge (fallback) fails with InsufficientInstanceCapacity only in eu-west-1a, only around 01:00-03:00 UTC, while the account team's snapshot shows 240 free m8g.16xlarge in eu-west-1a at those times. So pool depth does not explain it; the evidence should go to the AWS account team / TAM to investigate (e.g. account-level limits).", "numbers": ["90", "240"]},
+  {"id": "F3", "text": "c8g.4xlarge fails with VcpuLimitExceeded in a different Auto Scaling group (batch-etl-asg): a real On-Demand vCPU quota problem, fixed via Service Quotas, unrelated to the Graviton web rollout's capacity.", "numbers": ["36"]},
+  {"id": "F4", "text": "m8g.16xlarge in eu-west-1b fails with InsufficientFreeAddressesInSubnet (subnet-0bbb2222): a subnet IP space problem, fixed by adding IP space/subnets.", "numbers": ["15"]},
+  {"id": "F5", "text": "Duplicate records from the two merged trails are removed before counting (128 duplicates); counts are based on unique events (465 instances with capacity errors in total).", "numbers": ["128", "465"]},
+  {"id": "F6", "text": "Recommends continuing the rollout (not pausing as the first answer), with concrete actions and an owner for each (customer platform team / AWS account team or TAM / customer for quota)."}
+ ],
+ "wrong_claims": [
+  {"id": "W1", "text": "Suggests a quota increase as the fix for InsufficientInstanceCapacity errors."},
+  {"id": "W2", "text": "Treats the m8g.16xlarge eu-west-1a failures as a normal pool shortage, ignoring that the snapshot showed free capacity."},
+  {"id": "W3", "text": "Recommends pausing or rolling back the Graviton rollout as the main answer."},
+  {"id": "W4", "text": "Reports failure counts inflated by duplicate records (e.g. counts higher than 210 / 165 / 90 for the capacity errors)."},
+  {"id": "W5", "text": "Blames the c8g.4xlarge quota errors or the subnet errors on Graviton capacity."}
+ ]
+}

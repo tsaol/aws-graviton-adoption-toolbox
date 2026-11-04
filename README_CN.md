@@ -15,7 +15,7 @@
 </p>
 
 > [!WARNING]
-> **开发早期（v0.1 进行中）**，还不能用于生产。
+> **开发早期**：v0.1 第一版已完成，见[测试报告](docs/test-report-2026-11-04.md)。还不能用于生产。
 
 ## 为什么做这个
 
@@ -70,7 +70,7 @@ flowchart LR
 
 ## 路线图
 
-- [ ] **v0.1**：`graviton-playbook` + `graviton-rollout-capacity` + 2 道回放题；其他阶段先放一张"该用哪个现成工具"的表
+- [x] **v0.1 第一版**：`graviton-playbook` + `graviton-rollout-capacity` + 2 道回放题。[测试报告](docs/test-report-2026-11-04.md)：13/13 单元测试通过；装了工具箱，Opus 5.5 在 4/4 次运行中答对全部评分项（1.0，不装时为 0.90–0.92），快约 10–15%
 - [ ] **v0.2**：`arm-only-failure-triage` + 复现 harness，5 道回放题
 - [ ] **之后**：口径检查清单、每周采用报表、20 道以上回放题、Kiro / Claude Code / Codex / Copilot 各自的成绩
 
