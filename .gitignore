@@ -1,0 +1,24 @@
+# Never commit customer or account data
+data/
+*.local.*
+*.secret*
+.env
+*.pem
+cloudtrail-*.json
+cur-*.csv
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Outputs
+out/
+reports/*.html
+!replay-bench/report.example.html
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
