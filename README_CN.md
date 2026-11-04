@@ -18,7 +18,78 @@
 > [!WARNING]
 > **开发早期**：v0.1 第二轮已完成，见[测试报告](docs/test-report-2026-11-04-r2.md)。还不能用于生产。
 
-工具箱是一组 [Agent Skills](https://agentskills.io)，Claude Code、Kiro、Codex、GitHub Copilot 用的都是这种格式。目前只在 Claude Code 上测过。
+## 这是什么
+
+**给 AI agent 用的 AWS Graviton skills。** 把它装进 coding agent（目前测过 Claude Code），agent 就能用你自己的 CloudTrail 和 CUR 数据做三件事：
+- 诊断 Graviton 放量时开不出机器的原因；
+- 放量前检查是否准备好；
+- 每周跟踪采用情况。
+
+几分钟就能出结果。agent 负责推理，skill 里的脚本负责算数，所以结论可以复查。
+
+## 看它怎么工作
+
+下面是端到端测试里的一次真实运行，用的是构造的样例数据。题目里只给了这一个问题，Claude Code 自己找到并用上了 skill。
+
+```text
+你     › Graviton 放量以后，我们的 Auto Scaling 组每晚都开不出 m8g.24xlarge。
+         证据在 ./input 里。为什么？要不要暂停？
+
+agent  · 加载 skill    graviton-rollout-capacity
+agent  · 运行          classify.py input/events.jsonl.gz --subnet-map … --capacity-snapshot … --cur …
+                       3,754 行 -> 1,161 个请求（334 条重复记录，2,259 行同一请求的重复行）
+
+agent  › 结论：不要暂停。这不是 Graviton 的问题，是晚上 eu-west-1a 和 1b 都没有空闲的
+         m8g.24xlarge。加备用规格、分批做预留，放量可以继续。
+
+         1  m8g.24xlarge，两个可用区，20:00-01:59   375 次容量不足（210 + 165）
+            -> 备用规格 + 分批预留；不是配额问题。            负责：平台团队 + 客户团队
+         2  m8g.16xlarge，eu-west-1a，01:00-02:59   快照显示有 240 台空闲，仍有 90 次容量不足
+            -> 池子大小解释不了，把证据交给 TAM。             负责：客户团队
+         3  c8g.4xlarge，eu-west-1b                 36 次 VcpuLimitExceeded -> 提高 vCPU 配额
+         4  m8g.16xlarge，eu-west-1b                15 次 InsufficientFreeAddressesInSubnet -> 加 IP
+
+         数据看不出来的：第 2 项的原因；备用规格晚上有没有空闲；ASG 的配置。
+```
+
+<sub>节选自[完整答案](replay-bench/results/2026-11-04-r2/e2e/quickstart-proj.answer.md)（英文），中文是转述。每个数字都和这道题的[标准答案](replay-bench/cases/ice-two-causes/answer.json)一致。</sub>
+
+## agent 怎么用它
+
+```mermaid
+sequenceDiagram
+    actor U as 你
+    participant A as Coding agent
+    participant S as Skill（SKILL.md）
+    participant X as 脚本
+    participant D as 你的证据数据
+    U->>A: "开不出机器，要不要暂停？"
+    A->>S: 按描述匹配到 skill，读取步骤和规则
+    A->>X: 运行 classify.py / precheck.py / weekly_report.py
+    X->>D: 读取 CloudTrail、CUR、快照文件（只读）
+    X-->>A: 事实：去重后的数字、按规格×可用区×小时的原因、标记
+    A-->>U: 结论、每个原因的负责人、数据看不出来的部分
+```
+
+**为什么用 skill，而不是只写一段提示词**：skill 给 agent 的是步骤、规则和容易踩的坑，比如"容量不足不是配额问题"；脚本给它可以信任的数字。没有这些，同一个模型推理照样不错，但数字会算错，见下面的结果。
+
+## 有没有用
+
+同一个 agent、同一道题，装工具箱和不装工具箱各跑一遍。评分标准是跑之前写好的，由模型评审打分。完整报告见[第二轮测试报告](docs/test-report-2026-11-04-r2.md)。
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/replay-results-dark.svg">
+  <img alt="回放结果。两类原因：评分项覆盖率装工具箱 1.00，不装 0.79；关键数字 1.00 对 0.40。释放预留后复发：1.00 对 0.70；关键数字 1.00 对 0.67。" src="assets/replay-results-light.svg" width="100%">
+</picture>
+
+| 题 | 评分项覆盖率（装 / 不装） | 关键数字答对（装 / 不装） | 用时，秒（装 / 不装） |
+|---|---|---|---|
+| 两类原因混在一起 | **1.00** / 0.79 | **1.00** / 0.40 | 108 / 135 |
+| 释放预留后复发 | **1.00** / 0.70 | **1.00** / 0.67 | 77 / 92 |
+
+不装工具箱时，agent 没有合并同一请求的重复行，每晚的失败数被放大了 3 到 6 倍。样本小（2 道题，每种跑 2 次），数据是构造的；引用这些数字前，请先看报告里的局限说明。
+
+工具箱用的是 [Agent Skills](https://agentskills.io) 格式，Claude Code、Kiro、Codex、GitHub Copilot 都能读。目前只在 Claude Code 上测过。
 
 ## 快速开始（Claude Code）
 

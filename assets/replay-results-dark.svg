@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="236" viewBox="0 0 900 236" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-label="Same agent, same task: with vs without the toolbox">
+<rect width="900" height="236" rx="12" fill="#1a1a19"/>
+<text x="24" y="34" fill="#f0efec" font-size="17" font-weight="700">Same agent, same task: with vs without the toolbox</text>
+<text x="24" y="56" fill="#c3c2b7" font-size="12.5">Claude Code + Opus 5.5, 2 runs per case and mode, synthetic data, judged by Opus 5.5 on Bedrock</text>
+<rect x="586" y="24" width="12" height="12" rx="3" fill="#3987e5"/>
+<text x="604" y="34.5" fill="#f0efec" font-size="12.5">With the toolbox</text>
+<rect x="746" y="24" width="12" height="12" rx="3" fill="#d95926"/>
+<text x="764" y="34.5" fill="#f0efec" font-size="12.5">Without</text>
+<text x="234.0" y="78" fill="#f0efec" font-size="13" font-weight="600">Rubric facts covered</text>
+<line x1="234.0" y1="88" x2="234.0" y2="202" stroke="#383835" stroke-width="1"/>
+<text x="234.0" y="218" fill="#c3c2b7" font-size="11" text-anchor="middle">0</text>
+<line x1="366.5" y1="88" x2="366.5" y2="202" stroke="#383835" stroke-width="1"/>
+<text x="366.5" y="218" fill="#c3c2b7" font-size="11" text-anchor="middle">0.5</text>
+<line x1="499.0" y1="88" x2="499.0" y2="202" stroke="#383835" stroke-width="1"/>
+<text x="499.0" y="218" fill="#c3c2b7" font-size="11" text-anchor="middle">1</text>
+<text x="24" y="115" fill="#f0efec" font-size="13">Two causes mixed</text>
+<g><title>Two causes mixed, with the toolbox: 1.00</title><path d="M234.0,92.0 H495.0 Q499.0,92.0 499.0,96.0 V106.0 Q499.0,110.0 495.0,110.0 H234.0 Z" fill="#3987e5"/><text x="505.0" y="105" fill="#f0efec" font-size="12" font-weight="600">1.00</text></g>
+<g><title>Two causes mixed, without the toolbox: 0.79</title><path d="M234.0,112.0 H439.6 Q443.6,112.0 443.6,116.0 V126.0 Q443.6,130.0 439.6,130.0 H234.0 Z" fill="#d95926"/><text x="449.6" y="125" fill="#f0efec" font-size="12" font-weight="400">0.79</text></g>
+<text x="24" y="183" fill="#f0efec" font-size="13">ICE after reservation release</text>
+<g><title>ICE after reservation release, with the toolbox: 1.00</title><path d="M234.0,160.0 H495.0 Q499.0,160.0 499.0,164.0 V174.0 Q499.0,178.0 495.0,178.0 H234.0 Z" fill="#3987e5"/><text x="505.0" y="173" fill="#f0efec" font-size="12" font-weight="600">1.00</text></g>
+<g><title>ICE after reservation release, without the toolbox: 0.70</title><path d="M234.0,180.0 H415.5 Q419.5,180.0 419.5,184.0 V194.0 Q419.5,198.0 415.5,198.0 H234.0 Z" fill="#d95926"/><text x="425.5" y="193" fill="#f0efec" font-size="12" font-weight="400">0.70</text></g>
+<line x1="234.0" y1="88" x2="234.0" y2="202" stroke="#c3c2b7" stroke-width="1"/>
+<text x="567.0" y="78" fill="#f0efec" font-size="13" font-weight="600">Key numbers right</text>
+<line x1="567.0" y1="88" x2="567.0" y2="202" stroke="#383835" stroke-width="1"/>
+<text x="567.0" y="218" fill="#c3c2b7" font-size="11" text-anchor="middle">0</text>
+<line x1="699.5" y1="88" x2="699.5" y2="202" stroke="#383835" stroke-width="1"/>
+<text x="699.5" y="218" fill="#c3c2b7" font-size="11" text-anchor="middle">0.5</text>
+<line x1="832.0" y1="88" x2="832.0" y2="202" stroke="#383835" stroke-width="1"/>
+<text x="832.0" y="218" fill="#c3c2b7" font-size="11" text-anchor="middle">1</text>
+<g><title>Two causes mixed, with the toolbox: 1.00</title><path d="M567.0,92.0 H828.0 Q832.0,92.0 832.0,96.0 V106.0 Q832.0,110.0 828.0,110.0 H567.0 Z" fill="#3987e5"/><text x="838.0" y="105" fill="#f0efec" font-size="12" font-weight="600">1.00</text></g>
+<g><title>Two causes mixed, without the toolbox: 0.40</title><path d="M567.0,112.0 H669.0 Q673.0,112.0 673.0,116.0 V126.0 Q673.0,130.0 669.0,130.0 H567.0 Z" fill="#d95926"/><text x="679.0" y="125" fill="#f0efec" font-size="12" font-weight="400">0.40</text></g>
+<g><title>ICE after reservation release, with the toolbox: 1.00</title><path d="M567.0,160.0 H828.0 Q832.0,160.0 832.0,164.0 V174.0 Q832.0,178.0 828.0,178.0 H567.0 Z" fill="#3987e5"/><text x="838.0" y="173" fill="#f0efec" font-size="12" font-weight="600">1.00</text></g>
+<g><title>ICE after reservation release, without the toolbox: 0.67</title><path d="M567.0,180.0 H739.8 Q743.8,180.0 743.8,184.0 V194.0 Q743.8,198.0 739.8,198.0 H567.0 Z" fill="#d95926"/><text x="749.8" y="193" fill="#f0efec" font-size="12" font-weight="400">0.67</text></g>
+<line x1="567.0" y1="88" x2="567.0" y2="202" stroke="#c3c2b7" stroke-width="1"/>
+</svg>
